@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { sendNotifications } from '../api';
 import '../styles/NotificationForm.css'
+import Loader from './Loader'; 
 
 const NotificationForm = () => {
   const [csvUrl, setCsvUrl] = useState('');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const campaign = {
       title,
@@ -21,7 +24,9 @@ const NotificationForm = () => {
       setResult(response.data);
     } catch (error) {
       setResult({ message: 'Error sending notifications', error: error.message });
-    }
+    }finally {
+        setLoading(false);
+      }
   };
 
   return (
@@ -58,7 +63,9 @@ const NotificationForm = () => {
             required
           />
         </div>
-        <button type="submit">Send</button>
+        <button type="submit" disabled={loading}>
+          {loading ? <Loader /> : 'Send'}
+        </button>
       </form>
       {result && (
         <div className="result">
