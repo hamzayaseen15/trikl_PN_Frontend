@@ -85,8 +85,8 @@ button:hover:enabled {
   word-wrap: break-word;
   white-space: pre-wrap;
   overflow-wrap: break-word;
-  max-height: 200px; /* Set a maximum height for the result section */
-  overflow-y: auto; /* Enable vertical scrolling if content exceeds max height */
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 pre {
